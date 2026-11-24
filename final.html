@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 С Новым годом! 🎄</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='50'%3E🎄%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2em; }
+        .subtitle { text-align: center; margin-bottom: 30px; font-size: 1.1em; }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            background: #00ff00;
+            color: #0a0a0a;
+            transform: scale(1.05);
+        }
+        .card h2 { margin-bottom: 10px; }
+        .card-content {
+            display: none;
+            margin-top: 15px;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .card.opened .card-content {
+            display: block;
+        }
+        .card.opened {
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 С Новым годом! 🎄</h1>
+        <p class="subtitle">Вы прошли все испытания. Нажмите на карточку, чтобы прочитать поздравление</p>
+        <div class="cards">
+            <div class="card" onclick="toggleCard(this)">
+                <h2>Дима</h2>
+                <div class="card-content">
+                    Брат, 9 лет вместе — это тебе не хухры-мухры. От первых оскорблений до этого квеста, который я для вас собрал. В 2027 желаю тебе поменьше стресса, побольше побед и чтобы Блицкранк наконец-то цеплял тех, кого надо. А если нет — ну и ладно, мы все равно соберемся и выпьем. Я не опьянею, так что ты можешь расслабиться. С Новым годом, брат.
+                </div>
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                <h2>Кристина</h2>
+                <div class="card-content">
+                    Кристина, ты — душа нашей тусовки. В 2027 желаю Арчи поменьше носков (или побольше — смотря как посмотреть), тебе — поменьше «блять» и побольше «Ты сука гей». Ты крутая, и мы все это знаем. С Новым годом!
+                </div>
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                <h2>Данил</h2>
+                <div class="card-content">
+                    Данил, гандон с большой буквы. Пусть в 2027 будет успешным успехом. Ты крутой хоть и руина, и я это говорю не потому что мы друзья, а потому что это правда. И да, Игорь теперь тоже с нами — так что ответственность растет. С Новым годом!
+                </div>
+            </div>
+            <div class="card" onclick="toggleCard(this)">
+                <h2>Игорь</h2>
+                <div class="card-content">
+                    Игорь, ты видел нас несколько раз в жизни, но всё равно пришел на НГ. Это либо храбрость, либо безумие — в любом случае, я уважаю. Добро пожаловать в наш цирк. В 2027 желаю тебе выучить хотя бы половину наших мемов, а то мы уже начали подозревать, что ты шпион. С Новым годом, брат Данила и наш новый герой!
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function toggleCard(card) {
+            card.classList.toggle('opened');
+        }
+    </script>
+</body>
+</html>

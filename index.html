@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодний квест</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 2em; }
+        .question { font-size: 1.2em; margin-bottom: 20px; line-height: 1.6; }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1em;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover { background: #00cc00; }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎄 Новогодний квест 🎄</h1>
+        <p class="question">Введи имя пса, который важнее всех нас</p>
+        <input type="text" id="answer" placeholder="Ответ">
+        <button onclick="checkAnswer()">Проверить</button>
+        <p class="error" id="error">Неверно, попробуй еще раз</p>
+    </div>
+    
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.toLowerCase().trim();
+            if (answer === 'арчи') {
+                window.location.href = 'chapter1.html';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

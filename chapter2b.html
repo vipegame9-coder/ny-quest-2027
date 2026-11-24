@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глава 2 - Продолжение</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='50' font-weight='bold'%3EГЕЙ%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .question { font-size: 1.2em; margin-bottom: 20px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 30px;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Глава 2</h1>
+        <p class="question">Посмотри внимательно на адресную строку</p>
+        <input type="text" id="answer" placeholder="Ответ">
+        <button onclick="checkAnswer()">Проверить</button>
+        <p class="error" id="error">Неверно</p>
+    </div>
+    
+    <script>
+        function checkAnswer() {
+            const answer = document.getElementById('answer').value.toLowerCase().trim();
+            const urlParams = new URLSearchParams(window.location.search);
+            const password = urlParams.get('password');
+            
+            if (answer === password.toLowerCase()) {
+                window.location.href = 'chapter2c.html';
+            } else {
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

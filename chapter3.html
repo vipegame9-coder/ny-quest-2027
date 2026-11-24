@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глава 3: Интерактив</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='50' font-weight='bold'%3EГЕЙ%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .question { font-size: 1.2em; margin-bottom: 20px; line-height: 1.6; }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 30px;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            margin: 5px;
+        }
+        button:hover { background: #00cc00; }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+        .puzzle { display: none; }
+        .puzzle.active { display: block; }
+        
+        /* Счетчик */
+        .counter-display {
+            font-size: 3em;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .counter-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        /* Слайдер */
+        input[type="range"] {
+            width: 100%;
+            margin: 20px 0;
+        }
+        .slider-value {
+            text-align: center;
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        
+        /* Порядок кнопок */
+        .order-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .order-buttons button {
+            padding: 10px 20px;
+        }
+        .order-buttons button.clicked {
+            background: #00cc00;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        
+        /* Наведение */
+        /* Наведение */
+.hover-area {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    position: relative;
+    background: #0a0a0a;
+    border: 2px solid #00ff00;
+    border-radius: 5px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.hover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hover-target {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    /* background: rgba(255, 0, 0, 0.3); */ /* для отладки */
+}
+
+.hover-text {
+    display: none;
+    position: absolute;
+    font-size: 0.85em;
+    color: #00ff00;
+    text-shadow: 0 0 8px #00ff00;
+    pointer-events: none;   /* чтобы текст не мешал курсору */
+    white-space: nowrap;    /* чтобы не переносилось на две строки */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+       <!-- Загадка 10: Счетчик -->
+<div class="puzzle active" id="p10">
+    <h1>Глава 3: Интерактив</h1>
+    <p class="question">Дойди до Нового года</p>
+    <div class="counter-display" id="counterDisplay">0</div>
+    <div class="counter-buttons">
+        <button onclick="incrementCounter()">Клик</button>
+        <button onclick="decrementCounter()" id="decrementBtn" style="display:none;">-1</button>
+    </div>
+</div>
+        
+        <!-- Загадка 11: Слайдер -->
+        <div class="puzzle" id="p11">
+            <h1>Глава 3</h1>
+            <p class="question">Установи слайдер на несчастливое значение</p>
+            <input type="range" id="slider" min="0" max="100" value="50" oninput="updateSlider()">
+            <div class="slider-value" id="sliderValue">50</div>
+            <button onclick="checkSlider()">Проверить</button>
+            <p class="error" id="e11">Неверно</p>
+        </div>
+        
+        <!-- Загадка 12: Порядок кнопок -->
+<div class="puzzle" id="p12">
+    <h1>Глава 3</h1>
+    <p class="question">Нажми кнопки в порядке убывания по возрасту</p>
+    <div class="order-buttons">
+        <button onclick="checkOrder('Данил', this)">Данил</button>
+        <button onclick="checkOrder('Игорь', this)">Игорь</button>
+        <button onclick="checkOrder('Кристина', this)">Кристина</button>
+        <button onclick="checkOrder('Валериан', this)">Валериан</button>
+        <button onclick="checkOrder('Дима', this)">Дима</button>
+    </div>
+    <p class="error" id="e12">Неверно, попробуй еще раз</p>
+</div>
+        
+        <!-- Загадка 13: Наведение -->
+<div class="puzzle" id="p13">
+    <h1>Глава 3</h1>
+    <p class="question">Наведи курсор на определенную область страницы</p>
+    <div class="hover-area">
+        <img src="archi.jpg" alt="Арчи" class="hover-image">
+        <div class="hover-target" 
+             onmouseenter="showHoverText()" 
+             onmousemove="moveHoverText(event)" 
+             onmouseleave="hideHoverText()">
+            <div class="hover-text" id="hoverText">хули смотришь?</div>
+        </div>
+    </div>
+</div>
+        
+        <!-- Загадка 14: Форма -->
+        <div class="puzzle" id="p14">
+            <h1>Глава 3</h1>
+            <p class="question">Введи слово, которое появляется, когда мы выигрываем катку</p>
+            <input type="text" id="a14" placeholder="Ответ">
+            <button onclick="check(14, 'victory')">Проверить</button>
+            <p class="error" id="e14">Неверно</p>
+        </div>
+    </div>
+    
+    <script>
+        let counterValue = 0;
+        let orderSequence = [];
+        const correctOrder = ['Валериан', 'Кристина', 'Дима', 'Данил', 'Игорь'];
+        
+        function check(num, correct) {
+            const answer = document.getElementById(`a${num}`).value.toLowerCase().trim();
+            if (answer === correct) {
+                document.getElementById(`p${num}`).classList.remove('active');
+                if (num < 14) {
+                    document.getElementById(`p${num + 1}`).classList.add('active');
+                } else {
+                    window.location.href = 'final.html';
+                }
+            } else {
+                document.getElementById(`e${num}`).style.display = 'block';
+            }
+        }
+        
+        // Счетчик
+function incrementCounter() {
+    const sequence = ['2', '20', '202', '2028'];
+    if (counterValue < sequence.length) {
+        document.getElementById('counterDisplay').textContent = sequence[counterValue];
+        counterValue++;
+        
+        if (counterValue === sequence.length) {
+            document.getElementById('decrementBtn').style.display = 'inline-block';
+        }
+    }
+}
+
+function decrementCounter() {
+    const currentValue = document.getElementById('counterDisplay').textContent;
+    if (currentValue === '2028') {
+        document.getElementById('counterDisplay').textContent = '2027';
+        document.getElementById('decrementBtn').style.display = 'none';
+        
+        // Автоматический переход к следующей загадке через полсекунды
+        setTimeout(() => {
+            document.getElementById('p10').classList.remove('active');
+            document.getElementById('p11').classList.add('active');
+        }, 500); 
+    }
+}
+        
+        // Слайдер
+        function updateSlider() {
+            const slider = document.getElementById('slider');
+            document.getElementById('sliderValue').textContent = slider.value;
+        }
+        
+        function checkSlider() {
+            const slider = document.getElementById('slider');
+            const error = document.getElementById('e11');
+            
+            if (parseInt(slider.value) === 13) {
+                error.style.display = 'none';
+                document.getElementById('p11').classList.remove('active');
+                document.getElementById('p12').classList.add('active');
+            } else {
+                error.style.display = 'block';
+            }
+        }
+        
+        // Порядок кнопок
+        function checkOrder(name, btn) {
+            const error = document.getElementById('e12');
+            orderSequence.push(name);
+            btn.classList.add('clicked');
+            
+            if (orderSequence.length === 5) {
+                let isCorrect = true;
+                for (let i = 0; i < 5; i++) {
+                    if (orderSequence[i] !== correctOrder[i]) {
+                        isCorrect = false;
+                        break;
+                    }
+                }
+                
+                if (isCorrect) {
+                    error.style.display = 'none';
+                    document.getElementById('p12').classList.remove('active');
+                    document.getElementById('p13').classList.add('active');
+                } else {
+                    error.style.display = 'block';
+                    orderSequence = [];
+                    document.querySelectorAll('.order-buttons button').forEach(b => {
+                        b.classList.remove('clicked');
+                    });
+                }
+            }
+        }
+        
+        // Наведение
+ let p13Passed = false; // Флаг, чтобы не переключало несколько раз
+
+function showHoverText() {
+    document.getElementById('hoverText').style.display = 'block';
+    
+    // Если еще не прошли этот этап, запускаем таймер
+    if (!p13Passed) {
+        p13Passed = true;
+        setTimeout(() => {
+            document.getElementById('p13').classList.remove('active');
+            document.getElementById('p14').classList.add('active');
+        }, 1500); // Ждем 1.5 секунды, чтобы успели прочитать надпись
+    }
+}
+
+function moveHoverText(e) {
+    const text = document.getElementById('hoverText');
+    text.style.left = (e.offsetX + 12) + 'px';
+    text.style.top = (e.offsetY + 12) + 'px';
+}
+
+function hideHoverText() {
+    document.getElementById('hoverText').style.display = 'none';
+}
+    </script>
+</body>
+</html>

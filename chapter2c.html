@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глава 2 - Финал</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='50' font-weight='bold'%3EГЕЙ%3C/text%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .question { font-size: 1.2em; margin-bottom: 20px; line-height: 1.6; }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 30px;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover { background: #00cc00; }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+        .hint { position: fixed; bottom: 10px; left: 10px; font-size: 8px; opacity: 0.3; }
+        .puzzle { display: none; }
+        .puzzle.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Загадка 8 -->
+        <div class="puzzle active" id="p8">
+            <h1>Глава 2</h1>
+            <p class="question">Подсказка: F12 -> Application -> Local Storage</p>
+            <input type="text" id="a8" placeholder="Ответ">
+            <button onclick="check(8, 'хранилище')">Проверить</button>
+            <p class="error" id="e8">Неверно</p>
+            <div class="hint">key="secret"</div>
+        </div>
+        
+        <!-- Загадка 9 -->
+        <div class="puzzle" id="p9">
+            <h1>Глава 2</h1>
+            <p class="question">Платформа, которая объединяет всех нас, даже когда мы не видим друг друга</p>
+            <input type="text" id="a9" placeholder="Ответ">
+            <button onclick="check(9, 'discord')">Проверить</button>
+            <p class="error" id="e9">Неверно</p>
+        </div>
+    </div>
+    
+    <script>
+        localStorage.setItem('secret', 'ХРАНИЛИЩЕ');
+        
+        function check(num, correct) {
+            const answer = document.getElementById(`a${num}`).value.toLowerCase().trim();
+            if (answer === correct) {
+                document.getElementById(`p${num}`).classList.remove('active');
+                if (num < 9) {
+                    document.getElementById(`p${num + 1}`).classList.add('active');
+                } else {
+                    window.location.href = 'chapter3.html';
+                }
+            } else {
+                document.getElementById(`e${num}`).style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

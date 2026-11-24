@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>натуралы и макс</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #1a1a1a;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 40px;
+        }
+        h1 { text-align: center; margin-bottom: 30px; }
+        .question { font-size: 1.2em; margin-bottom: 20px; }
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 30px;
+            background: #00ff00;
+            color: #0a0a0a;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        .error { color: #ff0000; margin-top: 10px; display: none; }
+        .hint { position: fixed; bottom: 10px; right: 10px; font-size: 8px; opacity: 0.3; }
+        .puzzle { display: none; }
+        .puzzle.active { display: block; }
+    </style>
+</head>
+<body>
+    <!-- Загадка 2 -->
+    <div class="container">
+        <div class="puzzle active" id="puzzle2">
+            <h1>Глава 1</h1>
+            <p class="question">Пароль от следующей главы спрятан там, где ты смотришь, когда смотришь на вкладку</p>
+            <input type="text" id="answer2" placeholder="Ответ">
+            <button onclick="checkPuzzle2()">Проверить</button>
+            <p class="error" id="error2">Неверно</p>
+        </div>
+        
+        <!-- Загадка 3 -->
+        <div class="puzzle" id="puzzle3">
+            <h1>Глава 1</h1>
+            <p class="question">Пароль спрятан в коде страницы</p>
+            <!-- Пароль: НАЧАЛО -->
+            <input type="text" id="answer3" placeholder="Ответ">
+            <button onclick="checkPuzzle3()">Проверить</button>
+            <p class="error" id="error3">Неверно</p>
+            <div class="hint">F12</div>
+        </div>
+    </div>
+    
+    <script>
+        function checkPuzzle2() {
+            const answer = document.getElementById('answer2').value.toLowerCase().trim();
+            if (answer === 'натуралы и макс') {
+                document.getElementById('puzzle2').classList.remove('active');
+                document.getElementById('puzzle3').classList.add('active');
+            } else {
+                document.getElementById('error2').style.display = 'block';
+            }
+        }
+        
+        function checkPuzzle3() {
+            const answer = document.getElementById('answer3').value.toLowerCase().trim();
+            if (answer === 'начало') {
+                window.location.href = 'chapter2.html';
+            } else {
+                document.getElementById('error3').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
